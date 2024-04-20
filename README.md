@@ -26,7 +26,21 @@ and then you can use the alias `zellij-switch-session` to switch session.
 zellij-switch-session <session-name> <dir>
 ```
 
+## Sessionizer
 also if you are interested in [ThePrimeagen] 's [tmux-sessionizer] like functionality, you can use `scripts/zellij-sessionizer.sh` for it.
 
 [ThePrimeagen]: https://github.com/ThePrimeagen/ThePrimeagen
 [tmux-sessionizer]: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+if you want to run sessionizer in floating page inside zellij, write below in your config.kdl
+```kdl
+shared_except "locked" {
+    ...
+    bind "Ctrl f" {
+        Run "zellij-sessionizer" {
+            floating true
+            close_on_exit true
+        }
+    }
+}
+```
