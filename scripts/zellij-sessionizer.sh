@@ -17,9 +17,7 @@ if [[ -z $ZELLIJ ]]; then
 	exit 0
 else
     # Check if we are already in the session
-    current_session_name_line=$(zellij ls | grep current | sed 's/\x1b\[[0-9;]*m//g')
-    current_session_name=$(echo $current_session_name_line | cut -d " " -f 1)
-    if [[ $current_session_name == $session_name ]]; then
+    if [[ $session_name == $ZELLIJ_SESSION_NAME ]]; then
         exit 0
     fi
 
