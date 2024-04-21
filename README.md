@@ -32,13 +32,14 @@ also if you are interested in [ThePrimeagen] 's [tmux-sessionizer] like function
 [ThePrimeagen]: https://github.com/ThePrimeagen/ThePrimeagen
 [tmux-sessionizer]: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-if you want to run sessionizer in floating page inside zellij, write below in your config.kdl
+if you want to run sessionizer as pane in zellij, add below in your config.kdl
 ```kdl
 shared_except "locked" {
     ...
     bind "Ctrl f" {
         Run "zellij-sessionizer" {
-            floating true
+            // if you want to open in floating pane, set `floating true` instead.
+            in_place true
             close_on_exit true
         }
     }
