@@ -1,4 +1,5 @@
 use std::collections::BTreeMap;
+use std::path::PathBuf;
 use zellij_tile::prelude::*;
 
 #[derive(Default)]
@@ -18,15 +19,9 @@ impl ZellijPlugin for Switcher {
     }
 
     fn render(&mut self, _: usize, _: usize) {
-        let dir = self
-            .configuration
-            .get("dir")
-            .expect("Expected 'dir' in configuration");
-        switch_session_with_layout(
-            self.configuration.get("session_name").map(|s| s.as_str()),
-            LayoutInfo::File("default".to_string()),
-            Some(std::path::PathBuf::from(dir)),
-        );
+        let cwd = self.configuration.get("dir").map(|d| PathBuf::from(d));
+        let session_name = self.configuration.get("session_name").map(|s| s.as_str());
+        switch_session_with_layout(session_name, LayoutInfo::File("default".to_string()), cwd);
         close_self();
     }
 }
