@@ -5,18 +5,7 @@ This is a [Zellij][zellij] plugin for switching session.
 [zellij]: https://github.com/zellij-org/zellij
 
 ## Installation
-first, you need to add the `wasm32-wasi` target to your rust toolchain by running the following command:
-```bash
-rustup target add wasm32-wasi
-```
-
-then, install the plugin by running the following command:
-```bash
-cargo install --target wasm32-wasi --path .
-```
-
-## Usage
-if you want to run the plugin from cli, you can use the following command:
+Clone and run the following command to install the plugin.
 ```bash
 chmod +x scripts/zellij-switch-session.sh
 sudo cp scripts/zellij-switch-session.sh /usr/local/bin/zellij-switch-session
