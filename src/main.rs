@@ -5,16 +5,35 @@ use zellij_tile::prelude::*;
 #[derive(Default)]
 struct Switcher {
     configuration: BTreeMap<String, String>,
+    permissions_granted: bool,
 }
 
 register_plugin!(Switcher);
 impl ZellijPlugin for Switcher {
     fn load(&mut self, configuration: BTreeMap<String, String>) {
-        request_permission(&[PermissionType::ChangeApplicationState]);
         self.configuration = configuration;
+
+        request_permission(&[PermissionType::ChangeApplicationState]);
+        subscribe(&[EventType::PermissionRequestResult]);
+
+        if self.permissions_granted {
+            hide_self();
+        }
     }
 
-    fn update(&mut self, _: Event) -> bool {
+    fn update(&mut self, event: Event) -> bool {
+        match event {
+            Event::PermissionRequestResult(permission) => {
+                self.permissions_granted = match permission {
+                    PermissionStatus::Granted => true,
+                    PermissionStatus::Denied => false,
+                };
+                if self.permissions_granted {
+                    hide_self();
+                }
+            }
+            _ => {}
+        }
         false
     }
 
