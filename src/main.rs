@@ -37,6 +37,17 @@ impl ZellijPlugin for Switcher {
         false
     }
 
+    fn pipe(&mut self, pipe_message: PipeMessage) -> bool {
+        if let Some(payload) = pipe_message.payload {
+            let mut collection = payload.splitn(2, "::");
+            if let (Some(session_name), Some(cwd)) = (collection.next(), collection.next()) {
+                let layout: LayoutInfo = LayoutInfo::File("default".to_string());
+                switch_session_with_layout(Some(session_name), layout, Some(PathBuf::from(cwd)));
+            }
+        }
+        false
+    }
+
     fn render(&mut self, _: usize, _: usize) {
         let cwd = self.configuration.get("dir").map(|d| PathBuf::from(d));
         let session_name = self.configuration.get("session_name").map(|s| s.as_str());
