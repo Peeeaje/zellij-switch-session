@@ -15,6 +15,11 @@ and then you can use the alias `zellij-switch-session` to switch session.
 zellij-switch-session <session-name> <dir>
 ```
 
+Also you can use pipe too.
+```bash
+zellij pipe -p https://github.com/Peeeaje/zellij-switch-session/releases/download/Latest/zellij-session-switcher.wasm -- <session_name>::<dir>
+```
+
 ## Sessionizer
 also if you are interested in [ThePrimeagen] 's [tmux-sessionizer] like functionality, you can use `scripts/zellij-sessionizer.sh` for it.
 
