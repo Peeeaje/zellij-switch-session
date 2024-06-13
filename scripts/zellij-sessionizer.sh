@@ -5,22 +5,17 @@ selected_path=$(fdfind . ~/work ~/private ~/dotfiles ~/Documents ~ --min-depth 1
 
 # If no directory was selected, exit the script
 if [[ -z $selected_path ]]; then
-    exit 0
+  exit 0
 fi
 
 # Get the name of the selected directory, replacing "." with "_"
 session_name=$(basename $(dirname "$selected_path"))-$(basename "$selected_path" | tr . _)
 
 if [[ -z $ZELLIJ ]]; then
-	cd $selected_path
-	zellij attach $session_name -c
-	exit 0
+  cd $selected_path
+  zellij attach $session_name -c
+  exit 0
 else
-    # Check if we are already in the session
-    if [[ $session_name == $ZELLIJ_SESSION_NAME ]]; then
-        exit 0
-    fi
-
-    zellij-switch-session $session_name $selected_path
-    exit 0
+  zellij-switch-session $session_name $selected_path
+  exit 0
 fi
